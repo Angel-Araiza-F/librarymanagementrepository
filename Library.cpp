@@ -52,6 +52,9 @@ Loan* Library::findActiveLoan(const string& memberId, const string& isbn) {
 void Library::addBook(const Book& book) {
     books.push_back(book);
 }
+void Library::addCD(const CD& cd) {
+    cds.push_back(cd);
+}
 
 void Library::addMember(const Member& member) {
     members.push_back(member);
@@ -61,6 +64,13 @@ void Library::listBooks() const {
     cout << "=== Books in library ===" << endl;
     for (const auto& book : books) {
         book.printInfo();
+    }
+    cout << endl;
+}
+void Library::listCDs() const {
+    cout << "=== CDs in library ===" << endl;
+    for (const auto& cd : cds) {
+        cd.printInfo();
     }
     cout << endl;
 }
@@ -145,6 +155,50 @@ void Library::removeBook(string isbn) {
         }
     }
 }
+bool Library::borrowCD(const string& memberId, const string& album, const string& borrowDate) {
+    Member* member = findMember(memberId);
+    if (!member) {
+        cout << "Member not found." << endl;
+        return false;
+    }
+
+    CD* cd = findCD(album);
+    if (!cd) {
+        cout << "CD not found." << endl;
+        return false;
+    }
+
+    // Additional logic for borrowing a CD can be added here
+
+    cout << "CD borrowed successfully." << endl;
+    return true;
+}  
+bool Library::returnCD(const string& memberId, const string& album, const string& returnDate) {
+    Member* member = findMember(memberId);
+    if (!member) {
+        cout << "Member not found." << endl;
+        return false;
+    }
+
+    CD* cd = findCD(album);
+    if (!cd) {
+        cout << "CD not found." << endl;
+        return false;
+    }
+
+    // Additional logic for returning a CD can be added here
+
+    cout << "CD returned successfully." << endl;
+    return true;
+}
+void Library::removeCD(string album) {
+    for (int i = 0; i < cds.size(); i++) {
+        if (cds[i].getAlbum() == album) {
+            cds.erase(cds.begin() + i);
+            return;
+        }
+    }
+}
 void Library::removeMember(int id) {
     for (int i = 0; i < members.size(); i++) {
         if (members[i].getId() == id) {
@@ -157,6 +211,13 @@ Book* Library::searchBook(string query) {
     for (auto &b : books) {
         if (b.getIsbn() == query || b.getTitle() == query) {
             return &b;
+        }
+    }
+void Library::removeCD(string album) {
+    for (int i = 0; i < cds.size(); i++) {
+        if (cds[i].getAlbum() == album) {
+            cds.erase(cds.begin() + i);
+            return;
         }
     }
     return nullptr;
