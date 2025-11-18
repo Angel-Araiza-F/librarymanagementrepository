@@ -137,4 +137,29 @@ bool Library::returnBook(const string& memberId, const string& isbn, const strin
     cout << "Book returned successfully." << endl;
     return true;
 }
+void Library::removeBook(string isbn) {
+    for (int i = 0; i < books.size(); i++) {
+        if (books[i].getIsbn() == isbn) {
+            books.erase(books.begin() + i);
+            return;
+        }
+    }
+}
+void Library::removeMember(int id) {
+    for (int i = 0; i < members.size(); i++) {
+        if (members[i].getId() == id) {
+            members.erase(members.begin() + i);
+            return;
+        }
+    }
+}
+Book* Library::searchBook(string query) {
+    for (auto &b : books) {
+        if (b.getIsbn() == query || b.getTitle() == query) {
+            return &b;
+        }
+    }
+    return nullptr;
+}
+
 
