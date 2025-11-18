@@ -29,6 +29,8 @@ public:
     bool borrowBook(const string& memberId, const string& isbn, const string& borrowDate);
     bool returnBook(const string& memberId, const string& isbn, const string& returnDate);
 };
+vector<CD> cds;
+
 
 #endif // LIBRARY_H
 
