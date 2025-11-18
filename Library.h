@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Book.h"
+#include "CD.h"
 #include "Member.h"
 #include "Loan.h"
 
@@ -11,10 +12,12 @@ using namespace std;
 class Library {
 private:
     vector<Book> books;
+    vector<CD> cds;
     vector<Member> members;
     vector<Loan> loans;
 
     Book* findBook(const string& isbn);
+    CD* findCD(const string& album);
     Member* findMember(const string& memberId);
     int countActiveLoansForMember(const string& memberId) const;
     bool isBookAvailable(const string& isbn) const;
@@ -22,6 +25,7 @@ private:
 
 public:
     void addBook(const Book& book);
+    void addCD(const CD& cd);
     void addMember(const Member& member);
     void listBooks() const;
     void listMembers() const;
@@ -29,8 +33,6 @@ public:
     bool borrowBook(const string& memberId, const string& isbn, const string& borrowDate);
     bool returnBook(const string& memberId, const string& isbn, const string& returnDate);
 };
-vector<CD> cds;
 
 
 #endif // LIBRARY_H
-
